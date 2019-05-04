@@ -6,7 +6,6 @@
   "scripts": {
     "test": "nyc --require @babel/register mocha test/**.spec.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "babel --presets env -d lib/ src",
     "start": "nodemon --exec babel-node index"
   },
   "repository": {
