@@ -34,7 +34,7 @@ router.post('/add', (req, res) => {
     headOfHousehold: req.body.headOfHousehold,
     irsPin: req.body.irsPin,
     dependentDOB: req.body.dependentDOB,
-    dependentDuration: dependentDuration,
+    dependentDuration: req.body.dependentDuration,
     dependentName: req.body.dependentName,
     dependentRelationship: req.body.dependentRelationship,
     dependentSSN: req.body.dependentSSN,
