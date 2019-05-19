@@ -17,13 +17,27 @@ router.get('/', (req, res) => {
 router.post('/add', (req, res) => {
   const user = new User({
     _id: new mongoose.Types.ObjectId(),
-    eligibility: req.body.eligibility,
     lastname: req.body.lastname,
     firstname: req.body.firstname,
-    middlename: req.body.lastname,
-    cardfirstname: req.body.cardFname,
-    cardlastname: req.body.cardLname,
-    cardmiddlename: req.body.cardMname
+    ssn: req.body.ssn,
+    dob:req.body.dob,
+    phonenumber: req.body.phonenumber,
+    occupation: req.body.occupation,
+    city: req.body.city,
+    state: req.body.state,
+    zipcode: req.body.zipcode,
+    address: req.body.address,
+    email: req.body.email,
+    taxStatus: req.body.taxStatus,
+    obamaInsurance: req.body.obamaInsurance,
+    taxDependent: req.body.taxDependent,
+    headOfHousehold: req.body.headOfHousehold,
+    irsPin: req.body.irsPin,
+    dependentDOB: req.body.dependentDOB,
+    dependentDuration: dependentDuration,
+    dependentName: req.body.dependentName,
+    dependentRelationship: req.body.dependentRelationship,
+    dependentSSN: req.body.dependentSSN,
   });
   user.save()
     .then((result) => {
