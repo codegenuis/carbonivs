@@ -34,14 +34,14 @@
     "mysql2": "^2.1.0",
     "node-mysql": "^0.4.2",
     "nodemon": "^1.18.10",
-    "sequelize": "^5.21.5"
-  },
-  "devDependencies": {
+    "sequelize": "^5.21.5",
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "@babel/register": "^7.0.0",
+  },
+  "devDependencies": {
     "coveralls": "^3.0.3",
     "eslint": "^5.13.0",
     "eslint-config-airbnb-base": "^13.1.0",
