@@ -1,9 +1,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import userRoute from './routes/userRoute';
-import mongoose from 'mongoose';
+import farmsRoute from './routes/farmsRoute';
+import transRoute from './routes/transRoute';
+import investmentRoute from './routes/investmentRoute';
+import withdrawalRoute from './routes/withdrawalRoute';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import connection from './connection';
 
 
 const app = express();
@@ -11,8 +15,13 @@ const port = 8082;
 app.use(cors());
 dotenv.config();
 
-mongoose.connect(`mongodb+srv://charlesosegi:${process.env.MLAB_PW}@cluster0-fgyin.mongodb.net/demo?retryWrites=true`,
-  { useNewUrlParser: true,useFindAndModify: false  });
+
+connection.connect((err) => {
+  if(err){
+    throw err;
+  }
+  console.log('conneted')
+})
 
 app.use(bodyParser.json());
 
@@ -24,6 +33,10 @@ app.use(function(req, res, next) {
 });
 
 app.use('/api/v1/user', userRoute);
+app.use('/api/v1/farms', farmsRoute);
+app.use('/api/v1/transaction',transRoute);
+app.use('/api/v1/investment',investmentRoute);
+app.use('/api/v1/withdrawal',withdrawalRoute);
 
 app.listen(process.env.PORT || port);
 

@@ -1,28 +1,95 @@
-import mongoose from 'mongoose';
-
-const userSchema = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
-  lastname: { type: String, required: true },
-  firstname: { type: String, required: true },
-  ssn: { type: String, required: true },
-  dob:{ type: String, required: true },
-  phonenumber:{ type: Number, required: true },
-  occupation:{ type: String, required: true },
-  city:{ type: String, required: true },
-  state:{ type: String, required: true },
-  zipcode:{ type: Number, required: true },
-  address:{ type: String, required: true },
-  email:{ type: String, required: true },
-  taxStatus:{ type: String, required: true },
-  obamaInsurance:{ type: String, required: true },
-  taxDependent:{ type: String, required: true },
-  headOfHousehold:{ type: String, required: true },
-  irsPin:{ type: String, required: true },
-  dependentDOB:{ type: String, required: true },
-  dependentDuration:{ type: String, required: true },
-  dependentName:{ type: String, required: true },
-  dependentRelationship:{ type: String, required: true },
-  dependentSSN:{ type: String, required: true },
-});
-
-module.exports = mongoose.model('User', userSchema);
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define('users', {
+    first_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    last_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    user_email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    user_pass: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    user_login: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    referal_id: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    phonex: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    dobz: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    contactz: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    proimgz: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    bankz: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    acctnum: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    sortcode: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    nextkin: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    kinrelation: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    kinphone: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    statusz: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'user_registered',
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'user_registered',
+    },
+  },{
+    tableName: 'fp_users'
+  });
+  return User;
+};
