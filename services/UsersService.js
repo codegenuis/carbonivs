@@ -10,22 +10,11 @@ export default class UsersService {
     return this.Meals.findAll();
   }
 
-  get(id) {
-    // -1 because we have our data in an array which starts at 0
-    return this.fetchAllMeals()[id - 1];
-  }
-
   addUser(user) {
     return this.Users.create(user);
   }
 
-  editMeal(meal, id) {
-    return this.Meals.update(meal, { returning: true, where: { id } });
-  }
-
-  deleteMeal(id) {
-    return this.Meals.destroy({
-      where: { id },
-    });
+  editUser(user, id) {
+    return this.Users.update(user, { returning: true, where: { user_email: id } });
   }
 }

@@ -86,7 +86,7 @@ router.post('/register', (req, res) => {
                     req.body.user_pass = hash
                     usersService.addUser(req.body).then((user) => {
                         return res.status(200).json({
-                            message: 'Imformation Submitted!',
+                            message: 'Information Submitted!',
                         })
                     })
                         .catch(error => {
@@ -105,18 +105,18 @@ router.post('/register', (req, res) => {
     })
 })
 
-router.put('/edit/:id', (req, res) => {
-    User.findOneAndUpdate({ _id: req.params.id }, req.body).exec()
-        .then((result) => {
-            res.status(200).json({
-                message: 'record updated',
-            });
+router.put('/edit', (req, res) => {
+    usersService.editUser(req.body,req.body.email)
+    .then(user => {
+        return res.status(200).json({
+            message: 'Details Updated',
         })
-        .catch((error) => {
-            res.status(500).json({
-                error,
-            });
+    })
+    .catch(error => {
+        return res.status(400).json({
+            error: error
         })
+    });
 })
 
 router.get('/user/:id', (req, res) => {
