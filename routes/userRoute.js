@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import OtpService from '../services/OtpService';
 import nodemailer from 'nodemailer';
-import moment from moment; 
+import moment from 'moment'; 
 
 const usersService = new UsersService();
 const otpService = new OtpService();
