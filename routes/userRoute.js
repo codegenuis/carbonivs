@@ -17,6 +17,7 @@ const router = express.Router();
 dotenv.config();
 const otp = otpService.create();
 
+
 var transporter = nodemailer.createTransport({
     host: 'mail.payfarmer.com',
     port: 465,
@@ -177,7 +178,14 @@ router.put('/edit', (req, res) => {
 
 router.put('/verify', (req, res) => {
     otpService.verify(req.body.email, req.body.code).then((response) => {
-        if(response[0].code == req.body.code && moment.unix() >= response[0].expires_in){
+        console.log(response)
+        if(response[0].code == req.body.code){
+            if(moment.unix() >= response[0].expires_in){
+                return res.status(400).json({
+                    message: "Code has expired"
+                })
+            }
+            else{
             connection.query('UPDATE fp_users SET ? WHERE user_email = ?', [{ statusz: 'Active' }, req.body.email], function(err, result){
                 if(err){
                     return res.status(400).json({
@@ -191,9 +199,10 @@ router.put('/verify', (req, res) => {
                 }
             })
         }
+    }
         else {
             return res.status(400).json({
-                message: "Invalid code or code has expired"
+                message: "Invalid code"
             })
         }
     })
@@ -204,5 +213,39 @@ router.put('/verify', (req, res) => {
             })
         });
 });
+
+router.put('/resend-otp', (req, res) => {
+    const newOTP = otpService.create();
+    req.body.expires_in = moment().add(11, 'minutes').unix();
+    req.body.code = newOTP;
+    var mailOptions = {
+        from: '<app@payfarmer.com>',
+        to: req.body.email,
+        subject: "OTP",
+        text: 'Kindly find otp  ' + newOTP,
+        html: "<p>Kindly find otp " + newOTP + " </p>",
+    };
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            console.log(error);
+            return res.status(400).json({
+                error: error
+            })
+        }else{
+    otpService.update(req.body,req.body.email)
+    .then(user => {
+        return res.status(200).json({
+            message: 'New OTP Sent',
+        })
+    })
+    .catch(error => {
+        return res.status(400).json({
+            error: error
+        })
+    });
+}
+});
+});
+
 
 export default router;

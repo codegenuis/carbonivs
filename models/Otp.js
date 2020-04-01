@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      expires_in: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       createdAt: {
         type: DataTypes.DATE,
       },

@@ -12,7 +12,7 @@ const router = express.Router();
 router.post('/insert', (req, res) => {
     transService.addUser(req.body).then((response) => {
         return res.status(200).json({
-            message: 'Imformation Submitted!',
+            message: 'Information Submitted',
         })
     })
         .catch(error => {

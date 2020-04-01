@@ -23,4 +23,8 @@ export default class OTPService {
     });
   }
 
+  update(user, id) {
+    return this.otp.update(user, { returning: true, where: { user_email: id } });
+  }
+
 }
