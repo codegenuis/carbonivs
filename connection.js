@@ -1,10 +1,10 @@
 import mysql from 'mysql';
 
 var connection = mysql.createConnection({
-    host: '162.241.29.233',
-    user: 'payfaube_usa1',
-    password: 'P!~CNh09-+#674',
-    database: 'payfaube_appz'
+    host: 'localhost',
+    user: 'charles',
+    password: 'nerd_5020',
+    database: 'farmpro'
   })
 
   export default connection

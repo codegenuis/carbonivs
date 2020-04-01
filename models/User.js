@@ -40,6 +40,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       defaultValue: '',
     },
+    statez: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
     proimgz: {
       type: DataTypes.STRING,
       allowNull: true,

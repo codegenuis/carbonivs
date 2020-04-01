@@ -5,6 +5,7 @@ import farmsRoute from './routes/farmsRoute';
 import transRoute from './routes/transRoute';
 import investmentRoute from './routes/investmentRoute';
 import withdrawalRoute from './routes/withdrawalRoute';
+import postRoute from './routes/postRoute';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connection from './connection';
@@ -37,6 +38,7 @@ app.use('/api/v1/farms', farmsRoute);
 app.use('/api/v1/transaction',transRoute);
 app.use('/api/v1/investment',investmentRoute);
 app.use('/api/v1/withdrawal',withdrawalRoute);
+app.use('/api/v1/posts',postRoute);
 
 app.listen(process.env.PORT || port);
 

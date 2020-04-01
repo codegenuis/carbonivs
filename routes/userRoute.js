@@ -5,12 +5,30 @@ import { validateEmail, removeHtmlEntities } from '../utils/validate';
 import UsersService from '../services/UsersService';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import OtpService from '../services/OtpService';
+import nodemailer from 'nodemailer';
 
 const usersService = new UsersService();
+const otpService = new OtpService();
 
 
 const router = express.Router();
 dotenv.config();
+const otp = otpService.create();
+
+var transporter = nodemailer.createTransport({
+    host: 'mail.payfarmer.com',
+    port: 465,
+    secure: true,
+    auth: {
+        user: 'app@payfarmer.com', // Your email id
+        pass: 'PO09%42@20j0' // Your password
+    },
+    tls: {
+        // do not fail on invalid certs
+        rejectUnauthorized: false
+    }
+});
 
 router.post('/login', (req, res) => {
     let email = req.body.email;
@@ -31,6 +49,12 @@ router.post('/login', (req, res) => {
                 message: 'Auth Failed'
             })
         } else {
+            if(user[0].statusz != 'Active'){
+                res.status(401).json({
+                    message: 'Auth Failed'
+                })
+            }
+            else{
             var newHash = user[0].user_pass.replace('$2y$', '$2b$');
             bcrypt.compare(password, newHash, (err, result) => {
                 if (err) {
@@ -60,6 +84,7 @@ router.post('/login', (req, res) => {
                     message: 'Auth Failed'
                 })
             })
+        }  
         }
     })
 });
@@ -84,16 +109,46 @@ router.post('/register', (req, res) => {
                 }
                 else {
                     req.body.user_pass = hash
-                    usersService.addUser(req.body).then((user) => {
-                        return res.status(200).json({
-                            message: 'Information Submitted!',
-                        })
-                    })
-                        .catch(error => {
-                            return res.status(400).json({
-                                error: error
-                            })
-                        });
+                        var mailOptions = {
+                            from: '<app@payfarmer.com>',
+                            to: req.body.user_email,
+                            subject: "OTP",
+                            text: 'Kindly find otp  ' + otp,
+                            html: "<p>Kindly find otp " + otp + " </p>",
+                        };
+                        transporter.sendMail(mailOptions, function(error, info){
+                            if(error){
+                                console.log(error);
+                                return res.status(400).json({
+                                    error: error
+                                })
+                            }else{
+                                usersService.addUser(req.body).then((user) => {
+                                    var otpBody = {user_email: req.body.user_email, code: otp}
+                                var query = connection.query('INSERT INTO otpz SET ?', otpBody, function(err, result) {
+                                    if (err) {
+                                        console.log(err)
+                                        return res.status(400).json({
+                                            error: err
+                                        })
+                                    }
+                                    else{
+                                        console.log("1 record inserted");
+                                        return res.status(200).json({
+                                            message: 'Information Submitted'
+                                        })
+                                    }
+                                  });
+                                })
+
+                                .catch(error => {
+                                    return res.status(400).json({
+                                        error: error
+                                    })
+                                });
+                                console.log('Message sent: ' + info.response);
+                            }
+                        });       
                 }
             })
         } else {
@@ -119,18 +174,34 @@ router.put('/edit', (req, res) => {
     });
 })
 
-router.get('/user/:id', (req, res) => {
-    User.findOne({ _id: req.params.id }).exec()
-        .then((result) => {
-            res.status(200).json({
-                data: result,
-            });
-        })
-        .catch((error) => {
-            res.status(500).json({
-                error,
+router.put('/verify', (req, res) => {
+    otpService.verify(req.body.email, req.body.code).then((response) => {
+        if(response[0].code == req.body.code){
+            connection.query('UPDATE fp_users SET ? WHERE user_email = ?', [{ statusz: 'Active' }, req.body.email], function(err, result){
+                if(err){
+                    return res.status(400).json({
+                        error: err
+                    })
+                }
+                else{
+                    return res.status(200).json({
+                        message: "User Verified"
+                    })
+                }
             })
-        })
+        }
+        else {
+            return res.status(400).json({
+                message: "Invalid code"
+            })
+        }
+    })
+        .catch(error => {
+            console.log(error)
+            return res.status(400).json({
+                error: error
+            })
+        });
 });
 
 export default router;

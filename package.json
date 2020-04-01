@@ -19,6 +19,11 @@
   },
   "homepage": "https://github.com/codegenuis/ADC-meal-booking-app#readme",
   "dependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/register": "^7.0.0",
     "axios": "^0.19.2",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.18.3",
@@ -33,13 +38,11 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
     "node-mysql": "^0.4.2",
+    "nodemailer": "^6.4.6",
     "nodemon": "^1.18.10",
-    "sequelize": "^5.21.5",
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/register": "^7.0.0"
+    "otp-generator": "^1.1.0",
+    "paystack": "^2.0.1",
+    "sequelize": "^5.21.5"
   },
   "devDependencies": {
     "coveralls": "^3.0.3",
