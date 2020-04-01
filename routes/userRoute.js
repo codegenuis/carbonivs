@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import OtpService from '../services/OtpService';
 import nodemailer from 'nodemailer';
+import moment from moment; 
 
 const usersService = new UsersService();
 const otpService = new OtpService();
@@ -124,7 +125,7 @@ router.post('/register', (req, res) => {
                                 })
                             }else{
                                 usersService.addUser(req.body).then((user) => {
-                                    var otpBody = {id: 0, user_email: req.body.user_email, code: otp}
+                                    var otpBody = {id: 0, user_email: req.body.user_email, code: otp, expires_in: moment().add(11, 'minutes').unix()}
                                 var query = connection.query('INSERT INTO otpz SET ?', otpBody, function(err, result) {
                                     if (err) {
                                         console.log(err)
@@ -176,7 +177,7 @@ router.put('/edit', (req, res) => {
 
 router.put('/verify', (req, res) => {
     otpService.verify(req.body.email, req.body.code).then((response) => {
-        if(response[0].code == req.body.code){
+        if(response[0].code == req.body.code && moment.unix() >= response[0].expires_in){
             connection.query('UPDATE fp_users SET ? WHERE user_email = ?', [{ statusz: 'Active' }, req.body.email], function(err, result){
                 if(err){
                     return res.status(400).json({
@@ -192,7 +193,7 @@ router.put('/verify', (req, res) => {
         }
         else {
             return res.status(400).json({
-                message: "Invalid code"
+                message: "Invalid code or code has expired"
             })
         }
     })
