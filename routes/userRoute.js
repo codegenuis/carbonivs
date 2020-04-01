@@ -124,7 +124,7 @@ router.post('/register', (req, res) => {
                                 })
                             }else{
                                 usersService.addUser(req.body).then((user) => {
-                                    var otpBody = {id: null, user_email: req.body.user_email, code: otp}
+                                    var otpBody = {id: 0, user_email: req.body.user_email, code: otp}
                                 var query = connection.query('INSERT INTO otpz SET ?', otpBody, function(err, result) {
                                     if (err) {
                                         console.log(err)
