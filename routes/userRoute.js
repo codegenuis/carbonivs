@@ -77,7 +77,17 @@ router.post('/login', (req, res) => {
                         data: {
                             email: user[0].user_email,
                             firstname: user[0].first_name,
-                            lastname : user[0].last_name
+                            lastname : user[0].last_name,
+                            phone: user[0].phonex,
+                            dob: user[0].dobz,
+                            state: user[0].statez,
+                            bank: user[0].bankz,
+                            acc: user[0].acctnum,
+                            sortcode: user[0].sortcode,
+                            nextofkin: user[0].nextkin,
+                            kinrelation: user[0].kinrelation,
+                            kinphone: user[0].kinphone, 
+
                         },
                         token: token
                     })
