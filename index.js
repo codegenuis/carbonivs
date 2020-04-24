@@ -4,6 +4,7 @@ import userRoute from './routes/userRoute';
 import farmsRoute from './routes/farmsRoute';
 import transRoute from './routes/transRoute';
 import investmentRoute from './routes/investmentRoute';
+import messageRoute from './routes/messageRoute';
 import withdrawalRoute from './routes/withdrawalRoute';
 import postRoute from './routes/postRoute';
 import dotenv from 'dotenv';
@@ -37,6 +38,7 @@ app.use('/api/v1/user', userRoute);
 app.use('/api/v1/farms', farmsRoute);
 app.use('/api/v1/transaction',transRoute);
 app.use('/api/v1/investment',investmentRoute);
+app.use('/api/v1/messages',messageRoute);
 app.use('/api/v1/withdrawal',withdrawalRoute);
 app.use('/api/v1/posts',postRoute);
 
