@@ -30,20 +30,12 @@
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
     "cors": "^2.8.5",
+    "crypto-js": "^4.0.0",
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
-    "jsonwebtoken": "^8.5.1",
     "mocha": "^6.0.1",
-    "moment": "^2.24.0",
-    "mongoose": "^5.5.5",
-    "mysql": "^2.18.1",
-    "mysql2": "^2.1.0",
-    "node-mysql": "^0.4.2",
-    "nodemailer": "^6.4.6",
-    "nodemon": "^1.18.10",
-    "otp-generator": "^1.1.0",
-    "paystack": "^2.0.1",
-    "sequelize": "^5.21.5"
+    "node-fetch": "^2.6.0",
+    "nodemon": "^1.18.10"
   },
   "devDependencies": {
     "coveralls": "^3.0.3",
@@ -58,6 +50,6 @@
   },
   "engines": {
     "node": "10.x",
-    "npm": "6.7.0"
+    "npm": "6.14.4"
   }
 }
