@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import httpRoute from './routes/httpRoute';
+import LicenceRoute from './routes/LicenceRoute';
+import BvnRoute from './routes/BvnRoute';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
@@ -18,7 +19,9 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/api/v1/licence', httpRoute);
+app.use('/api/v1/licence', LicenceRoute);
+
+app.use('/api/v1/bvn', BvnRoute);
 
 app.listen(process.env.PORT || port);
 

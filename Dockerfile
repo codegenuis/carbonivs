@@ -5,16 +5,16 @@ FROM node:6
 RUN git clone https://github.com/codegenuis/carbonivs
 
 # Change workind directory to the cloned repo
-WORKDIR /licenseImage
+WORKDIR /usr/src/carbonivs
 
 # Copy the file from your host to your current location.
-COPY package.json .
+COPY package*.json ./
 
 # Install all the dependencies
 RUN npm install
 
 # Expose port
-EXPOSE 3000
+EXPOSE 8084
 
 # Run the application
 CMD ["npm", "start"]
