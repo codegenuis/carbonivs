@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import LicenceRoute from './routes/LicenceRoute';
 import BvnRoute from './routes/BvnRoute';
+import NinRoute from './routes/NinRoute';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
@@ -22,6 +23,8 @@ app.use(function(req, res, next) {
 app.use('/api/v1/licence', LicenceRoute);
 
 app.use('/api/v1/bvn', BvnRoute);
+
+app.use('/api/v1/nin', NinRoute);
 
 app.listen(process.env.PORT || port);
 
